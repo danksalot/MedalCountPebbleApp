@@ -8,9 +8,10 @@ var splashScreen = new UI.Card({
 });
 splashScreen.show();
 
-ajax({ url: 'https://app.scrapinghub.com/api/jobs/list.json?project=84590&apikey=f3c8dc917c7444e7aa903a582c42f8f6&count=1', type: 'json' },
+ajax({ url: 'https://app.scrapinghub.com/api/jobs/list.json?project=84590&apikey=f3c8dc917c7444e7aa903a582c42f8f6&count=2', type: 'json' },
   function(jobsList) {
-    ajax({ url: 'https://storage.scrapinghub.com/items/' + jobsList.jobs[0].id + '?apikey=f3c8dc917c7444e7aa903a582c42f8f6&format=json', type: 'json' },
+    var indx = jobsList.jobs[0].state == "finished" ? 0 : 1;
+    ajax({ url: 'https://storage.scrapinghub.com/items/' + jobsList.jobs[indx].id + '?apikey=f3c8dc917c7444e7aa903a582c42f8f6&format=json', type: 'json' },
       function(data) {
         var items = [];
         
