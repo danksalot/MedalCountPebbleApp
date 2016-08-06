@@ -18,7 +18,12 @@ ajax({ url: 'https://app.scrapinghub.com/api/jobs/list.json?project=84590&apikey
         data.forEach(function(obj) { 
           items.push({
             title: obj.place + " " + obj.country, 
-            subtitle: "G:" + obj.gold + " S:" + obj.silver + " B:" + obj.bronze + " Tot:" + obj.total
+            subtitle: "G:" + obj.gold + " S:" + obj.silver + " B:" + obj.bronze + " Tot:" + obj.total,
+            country: obj.country,
+            gold: obj.gold,
+            silver: obj.silver,
+            bronze: obj.bronze,
+            total: obj.total
           }); 
         });
         
@@ -27,6 +32,14 @@ ajax({ url: 'https://app.scrapinghub.com/api/jobs/list.json?project=84590&apikey
             items:items
           }]
         });    
+        
+        menu.on('select', function(e){
+          var card = new UI.Card({
+            title: e.item.country,
+            body: "Gold:" + e.item.gold + "\nSilver:" + e.item.silver + "\nBronze:" + e.item.bronze + "\nTotal:" + e.item.total
+          });
+          card.show();
+        });
         
         splashScreen.hide();
         menu.show();
